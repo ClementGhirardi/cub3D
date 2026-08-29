@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 11:38:43 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/18 00:42:33 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/26 17:37:49 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,22 @@ void	render_sprites(t_data *data)
 	t_sprite		*sprite;
 	int				i;
 
+	reset_sprite_z_buffer(data);
 	sort_sprites(data);
 	i = 0;
 	while (i < data->sprites.count)
 	{
-		sprite = &data->sprites.list[i];
-		transform_sprite(data, sprite, &render);
-		if (render.transform_y > 0)
+		if (data->sprites.list[i].active)
 		{
-			render.screen_x = (int)((WIN_WIDTH / 2)
-					* (1 + render.transform_x / render.transform_y));
-			init_sprite_bounds(&render);
-			draw_sprite(data, &render);
+			sprite = &data->sprites.list[i];
+			transform_sprite(data, sprite, &render);
+			if (render.transform_y > 0)
+			{
+				render.screen_x = (int)((WIN_WIDTH / 2)
+						* (1 + render.transform_x / render.transform_y));
+				init_sprite_bounds(&render);
+				draw_sprite(data, &render);
+			}
 		}
 		i++;
 	}

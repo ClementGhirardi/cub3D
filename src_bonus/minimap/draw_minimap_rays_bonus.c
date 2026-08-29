@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 17:53:41 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/20 13:26:36 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/27 12:40:43 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ static void	draw_minimap_ray(t_data *data, int screen_x)
 	t_point	start;
 	t_point	end;
 
-	cast_ray(data, &ray, screen_x);
 	start.x = minimap_center_x();
 	start.y = minimap_center_y();
-	end = world_to_minimap(data,
-			data->player.x + ray.dir_x * ray.wall_dist,
-			data->player.y + ray.dir_y * ray.wall_dist);
+	ray.camera_x = 2.0 * screen_x / WIN_WIDTH - 1.0;
+	ray.dir_x = data->player.dir_x + data->player.plane_x * ray.camera_x;
+	ray.dir_y = data->player.dir_y + data->player.plane_y * ray.camera_x;
+	end = map_to_minimap(data,
+			data->player.x + ray.dir_x * data->sprites.z_buffer[screen_x],
+			data->player.y + ray.dir_y * data->sprites.z_buffer[screen_x]);
 	draw_line(&data->mlx.frame, start, end, 0xFF0000);
 }
 
@@ -61,6 +63,6 @@ void	draw_minimap_rays(t_data *data)
 	while (x < WIN_WIDTH)
 	{
 		draw_minimap_ray(data, x);
-		x += 30;
+		x += 1;
 	}
 }

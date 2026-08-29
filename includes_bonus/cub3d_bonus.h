@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:18:13 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/20 13:26:36 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/27 12:45:53 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_BONUS_H
 
 # include "../libft/libft.h"
-# include <../minilibx-linux/mlx.h>
+# include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 
@@ -55,6 +55,14 @@
 
 # define SPRITE_FRAMES 4
 # define SPRITE_ANIM_SPEED 8
+
+# define MAX_PROJECTILES 16
+# define PROJECTILE_SPEED 0.2
+# define PROJECTILE_FLYING 0
+# define PROJECTILE_EXPLODING 1
+
+# define EXPLOSION_FRAMES 5
+# define EXPLOSION_ANIM_SPEED 4
 
 typedef struct s_img
 {
@@ -125,6 +133,7 @@ typedef struct s_sprite
 	double	x;
 	double	y;
 	double	distance;
+	int		active;
 }	t_sprite;
 
 typedef struct s_sprites
@@ -132,9 +141,11 @@ typedef struct s_sprites
 	t_sprite	*list;
 	int			count;
 	t_img		frames[SPRITE_FRAMES];
+	double		hit_box[SPRITE_FRAMES];
 	int			current_frame;
 	int			anim_counter;
 	double		z_buffer[WIN_WIDTH];
+	double		sprite_z_buffer[WIN_WIDTH];
 }	t_sprites;
 
 typedef enum e_door_state
@@ -160,15 +171,33 @@ typedef struct s_doors
 	int		count;
 }	t_doors;
 
+typedef struct s_projectile
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	int		active;
+	int		state;
+	int		explosion_frame;
+	int		explosion_counter;
+}	t_projectile;
+
+typedef struct s_projectiles
+{
+	t_projectile	list[MAX_PROJECTILES];
+}	t_projectiles;
+
 typedef struct s_data
 {
-	t_config	config;
-	t_map		map;
-	t_keys		keys;
-	t_player	player;
-	t_mlx		mlx;
-	t_sprites	sprites;
-	t_doors		doors;
+	t_config		config;
+	t_map			map;
+	t_keys			keys;
+	t_player		player;
+	t_mlx			mlx;
+	t_sprites		sprites;
+	t_doors			doors;
+	t_projectiles	projectiles;
 }	t_data;
 
 /*-- Initialization --*/
@@ -182,6 +211,7 @@ void		init_player(t_data *data);
 void		init_mlx(t_data *data);
 void		init_sprites(t_data *data);
 void		init_doors(t_data *data);
+void		init_projectiles(t_data *data);
 
 //			EXT
 void		init_data(t_data *data);
@@ -202,7 +232,6 @@ void		free_data(t_data *data);
 
 /*-- Parsing --*/
 
-//			IN
 typedef enum e_line_type
 {
 	LINE_EMPTY,
@@ -231,6 +260,7 @@ typedef struct s_parse
 	int		map_start;
 }	t_parse;
 
+//			IN
 int			is_space(char c);
 char		*shift_str(char *str, int n);
 int			is_player_char(char c);
@@ -297,7 +327,6 @@ void		init_hooks(t_data *data);
 
 /*-- Ray Casting --*/
 
-//			IN
 typedef struct s_ray
 {
 	double	camera_x;
@@ -321,6 +350,7 @@ typedef struct s_ray
 	int		door_hit;
 }	t_ray;
 
+//			IN
 void		init_ray(t_data *data, t_ray *ray, int x);
 void		init_delta(t_ray *ray);
 void		init_step_side(t_data *data, t_ray *ray);
@@ -334,20 +364,22 @@ void		render_frame(t_data *data);
 
 /*-- Minimap --*/
 
-//			IN
 typedef struct s_point
 {
 	int	x;
 	int	y;
 }	t_point;
 
-void		draw_square(t_img *img, t_point *point, int size, int color);
-void		draw_circle(t_img *img, t_point *center, int radius, int color);
+//			IN
+void		draw_minimap_square(t_img *img, t_point *point, int size, int color);
+
+void		draw_minimap_circle(t_img *img, t_point *center, int radius, int color);
+
+t_point		map_to_minimap(t_data *data, double x, double y);
 int			minimap_size(void);
 int			minimap_center_x(void);
 int			minimap_center_y(void);
 
-t_point		world_to_minimap(t_data *data, double x, double y);
 void		draw_minimap_tiles(t_data *data);
 
 void		draw_minimap_rays(t_data *data);
@@ -369,6 +401,7 @@ int			ray_hit_door(t_data *data, t_ray *ray);
 //-----------------------------------------------//
 
 /*-- Sprites --*/
+
 typedef struct s_sprite_render
 {
 	double	x;
@@ -386,6 +419,8 @@ typedef struct s_sprite_render
 }	t_sprite_render;
 
 //			IN
+void		reset_sprite_z_buffer(t_data *data);
+
 void		sort_sprites(t_data *data);
 void		draw_sprite(t_data *data, t_sprite_render *render);
 
@@ -397,7 +432,18 @@ void		update_sprites(t_data *data);
 void		render_sprites(t_data *data);
 //-------------------------------------//
 
+/*-- Projectiles --*/
+
+//			EXT
+void		shoot_projectile(t_data *data);
+
+void		update_projectiles(t_data *data);
+
+void		render_projectiles(t_data *data);
+//-------------------------------------//
+
 /*-- Error --*/
+
 //			EXT
 int			error_msg(char *message);
 //---------------------------------//

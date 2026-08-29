@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 12:46:06 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/19 01:58:59 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/21 15:02:21 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int	key_press(int keycode, t_data *data)
 		data->keys.rot_right = 1;
 	else if (keycode == KEY_E)
 		open_door(data);
+	else if (keycode == 32)
+		shoot_projectile(data);
 	return (0);
 }

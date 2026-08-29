@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 22:30:15 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/20 13:26:36 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/21 14:58:23 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,4 @@ void	render_frame(t_data *data)
 		data->sprites.z_buffer[x] = ray.wall_dist;
 		x++;
 	}
-	render_sprites(data);
 }

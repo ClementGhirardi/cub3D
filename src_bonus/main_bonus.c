@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 12:25:18 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/18 18:16:34 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/26 16:03:56 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	game_loop(t_data *data)
 		rotate_player(data, ROT_SPEED);
 	update_doors(data);
 	update_sprites(data);
+	update_projectiles(data);
 	render_frame(data);
+	render_sprites(data);
+	render_projectiles(data);
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.win, data->mlx.frame.img, 0, 0);

@@ -6,7 +6,7 @@
 #    By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/03 13:42:50 by clement-ghi       #+#    #+#              #
-#    Updated: 2026/08/20 13:27:52 by clement-ghi      ###   ########.fr        #
+#    Updated: 2026/08/27 12:46:50 by clement-ghi      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRC_BONUS_FILES = main_bonus.c \
 			initialization/init_mlx_bonus.c \
 			initialization/init_sprites_bonus.c \
 			initialization/init_doors_bonus.c \
+			initialization/init_projectiles_bonus.c \
 			initialization/init_data_bonus.c \
 			cleanup/destroy_mlx_bonus.c \
 			cleanup/free_sprites_bonus.c \
@@ -135,6 +136,8 @@ SRC_BONUS_FILES = main_bonus.c \
 			minimap/minimap_utils_bonus.c \
 			minimap/draw_minimap_tiles_bonus.c \
 			minimap/draw_minimap_rays_bonus.c \
+			minimap/draw_minimap_square_bonus.c \
+			minimap/draw_minimap_circle_bonus.c \
 			minimap/draw_minimap_bonus.c \
 			doors/open_door_bonus.c \
 			doors/update_doors_bonus.c \
@@ -144,7 +147,11 @@ SRC_BONUS_FILES = main_bonus.c \
 			sprites/draw_sprite_bonus.c \
 			sprites/load_sprites_bonus.c \
 			sprites/update_sprites_bonus.c \
+			sprites/reset_sprite_z_buffer_bonus.c \
 			sprites/render_sprites_bonus.c \
+			projectiles/shoot_projectile_bonus.c \
+			projectiles/update_projectiles_bonus.c \
+			projectiles/render_projectiles_bonus.c \
 			error/error_bonus.c
 			
 HEADER_BONUS_FILES = cub3d_bonus.h

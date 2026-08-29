@@ -6,13 +6,13 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 17:33:10 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/15 19:14:11 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/27 12:43:02 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
-void	draw_square(t_img *img, t_point *point, int size, int color)
+void	draw_minimap_square(t_img *img, t_point *point, int size, int color)
 {
 	int	x;
 	int	y;
@@ -45,10 +45,10 @@ void	draw_minimap_tiles(t_data *data)
 			point.x = x * MINIMAP_TILE;
 			point.y = y * MINIMAP_TILE;
 			if (data->map.grid[y][x] == '1')
-				draw_square(&data->mlx.frame,
+				draw_minimap_square(&data->mlx.frame,
 					&point, MINIMAP_TILE, data->config.ceiling_color);
 			else if (data->map.grid[y][x] == '0')
-				draw_square(&data->mlx.frame,
+				draw_minimap_square(&data->mlx.frame,
 					&point, MINIMAP_TILE, data->config.floor_color);
 			x++;
 		}
@@ -66,7 +66,7 @@ void	draw_minimap_player(t_data *data)
 	y = (int)(data->player.y * MINIMAP_TILE);
 	point.x = x - 2;
 	point.y = y - 2;
-	draw_square(&data->mlx.frame, &point, 5, 0xFF0000);
+	draw_minimap_square(&data->mlx.frame, &point, 5, 0xFF0000);
 }
 
 void	draw_minimap(t_data *data)

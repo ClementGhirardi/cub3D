@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_sprites_bonus.c                               :+:      :+:    :+:   */
+/*   init_projectiles_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 11:31:47 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/26 16:34:36 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/21 16:10:49 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
-void	init_sprites(t_data *data)
+void	init_projectiles(t_data *data)
 {
 	int	i;
 
-	data->sprites.list = NULL;
-	data->sprites.count = 0;
-	data->sprites.current_frame = 0;
-	data->sprites.anim_counter = 0;
 	i = 0;
-	while (i < SPRITE_FRAMES)
+	while (i < MAX_PROJECTILES)
 	{
-		init_img(&data->sprites.frames[i]);
-		data->sprites.hit_box[i] = 0;
+		data->projectiles.list[i].x = 0.0;
+		data->projectiles.list[i].y = 0.0;
+		data->projectiles.list[i].dir_x = 0.0;
+		data->projectiles.list[i].dir_y = 0.0;
+		data->projectiles.list[i].active = 0;
+		data->projectiles.list[i].state = PROJECTILE_FLYING;
+		data->projectiles.list[i].explosion_frame = 0;
+		data->projectiles.list[i].explosion_counter = 0;
 		i++;
 	}
 }

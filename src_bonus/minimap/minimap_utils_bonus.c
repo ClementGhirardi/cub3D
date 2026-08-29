@@ -6,51 +6,25 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:11:56 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/15 19:36:58 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/27 12:46:10 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
-void	draw_square(t_img *img, t_point *point, int size, int color)
+t_point	map_to_minimap(t_data *data, double x, double y)
 {
-	int	x;
-	int	y;
+	t_point	point;
+	int		center_x;
+	int		center_y;
 
-	y = 0;
-	while (y < size)
-	{
-		x = 0;
-		while (x < size)
-		{
-			if (MINIMAP_X <= point->x + x
-				&& point->x + x < MINIMAP_X + minimap_size()
-				&& MINIMAP_Y <= point->y + y
-				&& point->y + y < MINIMAP_Y + minimap_size())
-				put_pixel(img, point->x + x, point->y + y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	draw_circle(t_img *img, t_point *center, int radius, int color)
-{
-	int	x;
-	int	y;
-
-	y = -radius;
-	while (y <= radius)
-	{
-		x = -radius;
-		while (x <= radius)
-		{
-			if (x * x + y * y <= radius * radius)
-				put_pixel(img, center->x + x, center->y + y, color);
-			x++;
-		}
-		y++;
-	}
+	center_x = minimap_center_x();
+	center_y = minimap_center_y();
+	point.x = center_x
+		+ (int)((x - data->player.x) * MINIMAP_TILE);
+	point.y = center_y
+		+ (int)((y - data->player.y) * MINIMAP_TILE);
+	return (point);
 }
 
 int	minimap_size(void)

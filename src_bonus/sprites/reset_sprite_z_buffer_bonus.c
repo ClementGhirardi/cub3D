@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_sprites_bonus.c                               :+:      :+:    :+:   */
+/*   reset_sprite_z_buffer_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/17 11:31:47 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/26 16:34:36 by clement-ghi      ###   ########.fr       */
+/*   Created: 2026/08/21 16:20:55 by clement-ghi       #+#    #+#             */
+/*   Updated: 2026/08/21 16:21:07 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
-void	init_sprites(t_data *data)
+void	reset_sprite_z_buffer(t_data *data)
 {
-	int	i;
+	int	x;
 
-	data->sprites.list = NULL;
-	data->sprites.count = 0;
-	data->sprites.current_frame = 0;
-	data->sprites.anim_counter = 0;
-	i = 0;
-	while (i < SPRITE_FRAMES)
+	x = 0;
+	while (x < WIN_WIDTH)
 	{
-		init_img(&data->sprites.frames[i]);
-		data->sprites.hit_box[i] = 0;
-		i++;
+		data->sprites.sprite_z_buffer[x] = 1e30;
+		x++;
 	}
 }

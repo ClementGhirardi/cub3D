@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 00:17:57 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/18 09:48:23 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/26 16:56:47 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	fill_sprites(t_data *data)
 			{
 				data->sprites.list[i].x = x + 0.5;
 				data->sprites.list[i].y = y + 0.5;
+				data->sprites.list[i].active = 1;
 				data->map.grid[y][x] = '0';
 				i++;
 			}
