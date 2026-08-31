@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:18:13 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/27 12:45:53 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/31 16:21:28 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define DOOR_SPEED 0.025
 # define DOOR_WALKABLE 0.85
 
+# define SPRITE_MOVE_SPEED 0.01
 # define SPRITE_FRAMES 4
 # define SPRITE_ANIM_SPEED 8
 
@@ -371,9 +372,11 @@ typedef struct s_point
 }	t_point;
 
 //			IN
-void		draw_minimap_square(t_img *img, t_point *point, int size, int color);
+void		draw_minimap_square(t_img *img, t_point *point,
+				int size, int color);
 
-void		draw_minimap_circle(t_img *img, t_point *center, int radius, int color);
+void		draw_minimap_circle(t_img *img, t_point *center,
+				int radius, int color);
 
 t_point		map_to_minimap(t_data *data, double x, double y);
 int			minimap_size(void);
@@ -437,6 +440,7 @@ void		render_sprites(t_data *data);
 //			EXT
 void		shoot_projectile(t_data *data);
 
+int			hit_obstacle(t_data *data, double x, double y);
 void		update_projectiles(t_data *data);
 
 void		render_projectiles(t_data *data);

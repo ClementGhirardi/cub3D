@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 17:33:10 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/27 13:47:46 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/31 16:39:18 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,28 @@ static void	draw_minimap_background(t_data *data)
 	draw_minimap_square(&data->mlx.frame, &point, minimap_size(), 0x202020);
 }
 
-static void draw_minimap_sprites(t_data *data)
+static void	draw_minimap_sprites(t_data *data)
 {
-	int		end_x;
-	int		end_y;
-	int		start_x;
-	int		start_y;
+	t_point	start;
+	t_point	end;
 	t_point	center;
 	int		i;
 
-	start_x = (int)data->player.x - MINIMAP_RADIUS - 1;
-	start_y = (int)data->player.y - MINIMAP_RADIUS - 1;
-	end_y = (int)data->player.y + MINIMAP_RADIUS + 1;
-	end_x = (int)data->player.x + MINIMAP_RADIUS + 1;
+	start.x = (int)data->player.x - MINIMAP_RADIUS - 1;
+	start.y = (int)data->player.y - MINIMAP_RADIUS - 1;
+	end.y = (int)data->player.y + MINIMAP_RADIUS + 1;
+	end.x = (int)data->player.x + MINIMAP_RADIUS + 1;
 	i = 0;
 	while (i < data->sprites.count)
 	{
-		if (start_x < (int) data->sprites.list[i].x
-			&& (int) data->sprites.list[i].x < end_x
-			&& start_y < (int) data->sprites.list[i].y
-			&& (int) data->sprites.list[i].y < end_y
+		if (start.x < (int) data->sprites.list[i].x
+			&& (int) data->sprites.list[i].x < end.x
+			&& start.y < (int) data->sprites.list[i].y
+			&& (int) data->sprites.list[i].y < end.y
 			&& data->sprites.list[i].active)
 		{
 			center = map_to_minimap(data, data->sprites.list[i].x,
-				data->sprites.list[i].y);
+					data->sprites.list[i].y);
 			draw_minimap_circle(&data->mlx.frame, &center, 4, 0x0000FF);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 14:45:04 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/26 17:35:10 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/08/31 16:19:01 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	hit_sprite(t_data *data, double x, double y)
 	return (0);
 }
 
-static int	projectile_hit_obstacle(t_data *data, double x, double y)
+int	hit_obstacle(t_data *data, double x, double y)
 {
 	int		map_x;
 	int		map_y;
@@ -74,7 +74,7 @@ static void	move_projectile(t_data *data, t_projectile *p)
 	{
 		x = p->x + p->dir_x * step;
 		y = p->y + p->dir_y * step;
-		if (projectile_hit_obstacle(data, x, y))
+		if (hit_obstacle(data, x, y))
 		{
 			p->state = PROJECTILE_EXPLODING;
 			p->explosion_frame = 0;
