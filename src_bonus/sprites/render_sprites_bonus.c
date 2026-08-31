@@ -53,7 +53,6 @@ void	render_sprites(t_data *data)
 	int				i;
 
 	reset_sprite_z_buffer(data);
-	sort_sprites(data);
 	i = 0;
 	while (i < data->sprites.count)
 	{

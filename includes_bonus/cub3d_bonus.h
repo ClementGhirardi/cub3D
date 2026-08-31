@@ -42,6 +42,7 @@
 # define COLLISION_RADIUS 0.15
 # define ROT_SPEED 0.025
 # define MOUSE_SENS 0.0005
+# define HIT_BOX 0.25
 
 # define MINIMAP_TILE 25
 # define MINIMAP_RADIUS 7
@@ -427,6 +428,8 @@ void		reset_sprite_z_buffer(t_data *data);
 void		sort_sprites(t_data *data);
 void		draw_sprite(t_data *data, t_sprite_render *render);
 
+void		move_sprites(t_data *data);
+
 //			EXT
 int			load_sprites(t_data *data);
 
@@ -440,7 +443,7 @@ void		render_sprites(t_data *data);
 //			EXT
 void		shoot_projectile(t_data *data);
 
-int			hit_obstacle(t_data *data, double x, double y);
+int			hit_obstacle(t_data *data, double x, double y, int type);
 void		update_projectiles(t_data *data);
 
 void		render_projectiles(t_data *data);

@@ -14,7 +14,7 @@
 
 NAME			= cub3D
 NAME_BONUS		= cub3D_bonus
-CC				= cc
+CC				= cc -std=gnu11
 CFLAGS			= -Wall -Wextra -Werror
 LIBFT_FLAGS		= -lft
 LIBMLX_FLAGS	= -lmlx -lXext -lX11 -lm -lz
@@ -145,11 +145,13 @@ SRC_BONUS_FILES = main_bonus.c \
 			doors/ray_hit_door_bonus.c \
 			sprites/sort_sprites_bonus.c \
 			sprites/draw_sprite_bonus.c \
+			sprites/move_sprites_bonus.c \
 			sprites/load_sprites_bonus.c \
 			sprites/update_sprites_bonus.c \
 			sprites/reset_sprite_z_buffer_bonus.c \
 			sprites/render_sprites_bonus.c \
 			projectiles/shoot_projectile_bonus.c \
+			projectiles/hit_obstacle_bonus.c \
 			projectiles/update_projectiles_bonus.c \
 			projectiles/render_projectiles_bonus.c \
 			error/error_bonus.c
@@ -221,7 +223,7 @@ $(LIBFT):
 $(LIBMLX):
 	@printf "$(B_BLUE)~ Compiling MLX$(RESET)\n"
 	@tar xvzf minilibx-linux.tgz
-	@$(MAKE) --no-print-directory -C $(LIBMLX_DIR)
+	@$(MAKE) CC=clang --no-print-directory -C $(LIBMLX_DIR)
 	@printf "$(GREEN)✓ MLX created !$(RESET)\n\n"
 
 clean:

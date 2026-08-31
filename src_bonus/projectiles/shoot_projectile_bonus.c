@@ -23,10 +23,10 @@ void	shoot_projectile(t_data *data)
 		if (!data->projectiles.list[i].active)
 		{
 			p = &data->projectiles.list[i];
-			p->x = data->player.x;
-			p->y = data->player.y;
 			p->dir_x = data->player.dir_x;
 			p->dir_y = data->player.dir_y;
+			p->x = data->player.x + HIT_BOX * p->dir_x;
+			p->y = data->player.y + HIT_BOX * p->dir_y;
 			p->active = 1;
 			p->state = PROJECTILE_FLYING;
 			p->explosion_frame = 0;

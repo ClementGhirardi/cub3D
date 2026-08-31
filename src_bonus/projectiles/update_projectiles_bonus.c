@@ -12,55 +12,6 @@
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
-static int	hit_sprite(t_data *data, double x, double y)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < data->sprites.count)
-	{
-		if (fabs(data->sprites.list[i].x - x)
-			< data->sprites.hit_box[data->sprites.current_frame] / 2
-			&& fabs(data->sprites.list[i].y - y)
-			< data->sprites.hit_box[data->sprites.current_frame] / 2)
-		{
-			j = 0;
-			while (j < data->sprites.count)
-			{
-				if ((int)data->sprites.list[j].x == (int)x
-					&& (int)data->sprites.list[j].y == (int)y)
-					return (data->sprites.list[j].active = 0, 1);
-				j++;
-			}
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	hit_obstacle(t_data *data, double x, double y)
-{
-	int		map_x;
-	int		map_y;
-	t_door	*door;
-
-	map_x = (int)x;
-	map_y = (int)y;
-	if (map_x < 0 || map_y < 0
-		|| map_x >= data->map.width
-		|| map_y >= data->map.height)
-		return (1);
-	if (data->map.grid[map_y][map_x] == '1'
-		|| hit_sprite(data, x, y))
-		return (1);
-	door = get_door_at(data, map_x, map_y);
-	if (door && door->progress < DOOR_WALKABLE)
-		return (1);
-	return (0);
-}
-
 static void	move_projectile(t_data *data, t_projectile *p)
 {
 	double	step;
@@ -74,7 +25,7 @@ static void	move_projectile(t_data *data, t_projectile *p)
 	{
 		x = p->x + p->dir_x * step;
 		y = p->y + p->dir_y * step;
-		if (hit_obstacle(data, x, y))
+		if (hit_obstacle(data, x, y, 1))
 		{
 			p->state = PROJECTILE_EXPLODING;
 			p->explosion_frame = 0;
