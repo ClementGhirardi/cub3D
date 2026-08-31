@@ -62,9 +62,13 @@ int	hit_obstacle(t_data *data, double x, double y, int type)
 		|| map_x >= data->map.width
 		|| map_y >= data->map.height)
 		return (1);
-	if (data->map.grid[map_y][map_x] == '1'
-		|| (hit_sprite(data, x, y) && type))
+	if (data->map.grid[map_y][map_x] == '1')
 		return (1);
+	if (type == 1)
+	{
+		if (hit_sprite(data, x, y))
+			return (1);
+	}
 	door = get_door_at(data, map_x, map_y);
 	if (door && door->progress < DOOR_WALKABLE)
 		return (1);

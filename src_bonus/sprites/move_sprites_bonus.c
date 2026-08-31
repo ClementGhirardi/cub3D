@@ -29,9 +29,15 @@ static void	get_sprite_distances(t_data *data, t_sprite *sprite,
 	*dist_y = fabs(sprite->y - data->player.y);
 	dist = sqrt(pow(*dist_x, 2) + pow(*dist_y, 2));
 	if (dist == 0)
-		dist = 1e30;
-	*dist_x = s_x * cos(*dist_x / dist) * SPRITE_MOVE_SPEED;
-	*dist_y = s_y * sin(*dist_y / dist) * SPRITE_MOVE_SPEED;
+	{
+		*dist_x = s_x * 1e30;
+		*dist_y = s_y * 1e30;
+	}
+	else
+	{
+		*dist_x = s_x * *dist_x / dist * SPRITE_MOVE_SPEED;
+		*dist_y = s_y * *dist_y / dist * SPRITE_MOVE_SPEED;
+	}
 }
 
 static double	max_dist(double x, double y)
