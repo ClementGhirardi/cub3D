@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_sprites_bonus.c                               :+:      :+:    :+:   */
+/*   move_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 11:34:20 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/26 16:49:48 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/09/01 19:37:12 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,69 @@ static double	max_dist(double x, double y)
 	return (x);
 }
 
-void	move_sprites(t_data *data)
+static void	avoid_wall(t_data *data, t_sprite *sprite,
+			double dist_x, double dist_y)
 {
 	double		hit_box;
-	int			i;
-	t_sprite	*sprite;
+
+	hit_box = data->sprites.hit_box[data->sprites.current_frame] / 2;
+	if (dist_y < 0)
+		dist_y = -SPRITE_MOVE_SPEED;
+	else
+		dist_y = SPRITE_MOVE_SPEED;
+	if (!hit_obstacle(data,
+			sprite->x,
+			sprite->y + max_dist(dist_y + hit_box, dist_y - hit_box),
+			0))
+		sprite->y += dist_y;
+	if (dist_x < 0)
+		dist_x = -SPRITE_MOVE_SPEED;
+	else
+		dist_x = SPRITE_MOVE_SPEED;
+	if (!hit_obstacle(data,
+			sprite->x + max_dist(dist_x + hit_box, dist_x - hit_box),
+			sprite->y,
+			0))
+		sprite->x += dist_x;
+}
+
+static void	move_sprite(t_data *data, double hit_box, t_sprite *sprite)
+{
 	double		dist_x;
 	double		dist_y;
+
+	if (sprite->active)
+	{
+		get_sprite_distances(data, sprite, &dist_x, &dist_y);
+		if (!hit_obstacle(data, sprite->x + dist_x + hit_box,
+				sprite->y + dist_y, 0)
+			&& !hit_obstacle(data, sprite->x + dist_x - hit_box,
+				sprite->y + dist_y, 0)
+			&& !hit_obstacle(data, sprite->x + dist_x,
+				sprite->y + dist_y + hit_box, 0)
+			&& !hit_obstacle(data, sprite->x + dist_x,
+				sprite->y + dist_y - hit_box, 0))
+		{
+			sprite->y += dist_y;
+			sprite->x += dist_x;
+		}
+		else
+			avoid_wall(data, sprite, dist_x, dist_y);
+	}
+}
+
+void	move_sprites(t_data *data)
+{
+	t_sprite	*sprite;
+	double		hit_box;
+	int			i;
 
 	hit_box = data->sprites.hit_box[data->sprites.current_frame] / 2;
 	i = 0;
 	while (i < data->sprites.count)
 	{
 		sprite = &data->sprites.list[i];
-		if (sprite->active)
-		{
-			get_sprite_distances(data, sprite, &dist_x, &dist_y);
-			if (!hit_obstacle(data,
-					sprite->x + max_dist(dist_x + hit_box, dist_x - hit_box),
-					sprite->y + max_dist(dist_y + hit_box, dist_y - hit_box),
-					0))
-			{
-				sprite->y += dist_y;
-				sprite->x += dist_x;
-			}
-		}
+		move_sprite(data, hit_box, sprite);
 		i++;
 	}
 }

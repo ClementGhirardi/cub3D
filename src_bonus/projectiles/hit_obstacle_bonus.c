@@ -1,39 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_projectiles_bonus.c                         :+:      :+:    :+:   */
+/*   hit_obstacle_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 14:45:04 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/31 16:19:01 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/09/01 16:12:17 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes_bonus/cub3d_bonus.h"
 
+// static int	hit_sprite(t_data *data, double x, double y)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (i < data->sprites.count)
+// 	{
+// 		if (fabs(data->sprites.list[i].x - x)
+// 			< data->sprites.hit_box[data->sprites.current_frame] / 2
+// 			&& fabs(data->sprites.list[i].y - y)
+// 			< data->sprites.hit_box[data->sprites.current_frame] / 2)
+// 		{
+// 			j = 0;
+// 			while (j < data->sprites.count)
+// 			{
+// 				if ((int)data->sprites.list[j].x == (int)x
+// 					&& (int)data->sprites.list[j].y == (int)y)
+// 					return (data->sprites.list[j].active = 0, 1);
+// 				j++;
+// 			}
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
 static int	hit_sprite(t_data *data, double x, double y)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (i < data->sprites.count)
 	{
-		if (fabs(data->sprites.list[i].x - x)
+		if (data->sprites.list[i].active
+			&& fabs(data->sprites.list[i].x - x)
 			< data->sprites.hit_box[data->sprites.current_frame] / 2
 			&& fabs(data->sprites.list[i].y - y)
 			< data->sprites.hit_box[data->sprites.current_frame] / 2)
 		{
-			j = 0;
-			while (j < data->sprites.count)
-			{
-				if ((int)data->sprites.list[j].x == (int)x
-					&& (int)data->sprites.list[j].y == (int)y)
-					return (data->sprites.list[j].active = 0, 1);
-				j++;
-			}
-			return (1);
+			return (data->sprites.list[i].active = 0, 1);
 		}
 		i++;
 	}
