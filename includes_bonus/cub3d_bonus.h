@@ -39,7 +39,7 @@
 # define KEY_E 101
 
 # define MOVE_SPEED 0.05
-# define COLLISION_RADIUS 0.15
+# define COLLISION_RADIUS 0.26
 # define ROT_SPEED 0.025
 # define MOUSE_SENS 0.0005
 # define HIT_BOX 0.25
