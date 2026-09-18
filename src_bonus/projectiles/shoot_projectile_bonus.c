@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 14:45:04 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/21 16:11:47 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/09/17 14:54:22 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	shoot_projectile(t_data *data)
 			p = &data->projectiles.list[i];
 			p->dir_x = data->player.dir_x;
 			p->dir_y = data->player.dir_y;
-			p->x = data->player.x + HIT_BOX * p->dir_x;
-			p->y = data->player.y + HIT_BOX * p->dir_y;
+			p->x = data->player.x + (HIT_BOX / 2 + 0.1) * p->dir_x;
+			p->y = data->player.y + (HIT_BOX / 2 + 0.1) * p->dir_y;
 			p->active = 1;
 			p->state = PROJECTILE_FLYING;
 			p->explosion_frame = 0;

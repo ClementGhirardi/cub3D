@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:18:13 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/31 16:21:28 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/09/18 09:59:04 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@
 # define DOOR_SPEED 0.025
 # define DOOR_WALKABLE 0.85
 
-# define SPRITE_MOVE_SPEED 0.01
+# define SPRITE_MOVE_SPEED 0.035
 # define SPRITE_FRAMES 4
-# define SPRITE_ANIM_SPEED 8
+# define SPRITE_ANIM_SPEED 12
 
 # define MAX_PROJECTILES 16
 # define PROJECTILE_SPEED 0.2

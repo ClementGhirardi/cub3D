@@ -6,7 +6,7 @@
 /*   By: clement-ghirardi <clement-ghirardi@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 11:34:20 by clement-ghi       #+#    #+#             */
-/*   Updated: 2026/08/26 16:49:48 by clement-ghi      ###   ########.fr       */
+/*   Updated: 2026/09/18 09:31:53 by clement-ghi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ static void	calculate_hit_boxes(t_data *data)
 int	load_sprites(t_data *data)
 {
 	if (load_sprite_frame(data,
-			&data->sprites.frames[0], "textures/torch_0.xpm"))
+			&data->sprites.frames[0], "textures/Wolfenstein_enemy_0.xpm"))
 		return (1);
 	if (load_sprite_frame(data,
-			&data->sprites.frames[1], "textures/torch_1.xpm"))
+			&data->sprites.frames[1], "textures/Wolfenstein_enemy_1.xpm"))
 		return (1);
 	if (load_sprite_frame(data,
-			&data->sprites.frames[2], "textures/torch_2.xpm"))
+			&data->sprites.frames[2], "textures/Wolfenstein_enemy_2.xpm"))
 		return (1);
 	if (load_sprite_frame(data,
-			&data->sprites.frames[3], "textures/torch_3.xpm"))
+			&data->sprites.frames[3], "textures/Wolfenstein_enemy_3.xpm"))
 		return (1);
 	calculate_hit_boxes(data);
 	return (0);
